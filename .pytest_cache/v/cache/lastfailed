@@ -1,0 +1,5 @@
+{
+  "ghdl/tests/test_ghdl.py": true,
+  "ghdl_old/flask-helloworld2-master/tests/test_helloworld2.py": true,
+  "ghdl_old/tests/test_ghdl.py": true
+}

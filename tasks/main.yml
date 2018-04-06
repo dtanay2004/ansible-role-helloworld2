@@ -1,0 +1,72 @@
+---
+# tasks file for helloworld2
+
+- name: Tarball url
+  debug: var=HW2_TARBALL_URL verbosity=1
+
+- name: Temporary path 
+  debug: var=HW2_TMP_PATH verbosity=1
+- name: Make sure local tmp path exists
+            local_action:
+              module: file
+              path: "{{ HW2_TMP_PATH }}"
+              state: directory
+
+- name: "Download tarball from GitHub"
+            local_action:
+              module: get_url
+              url: "{{ HW2_TARBALL_URL }}"
+              dest: "{{ HW2_TMP_PATH }}"
+              mode: 0600
+- name: Make sure remote tmp path exists
+          file:
+            path: "{{ HW2_DEPLOY_PATH }}"
+            state: directory
+- name: "Copy tarball to remote and unpack it"
+          unarchive:
+            src: "{{ HW2_TMP_PATH }}/hw2.tgz"
+            dest: "{{ HW2_DEPLOY_PATH }}/"
+            mode: 0600
+
+- name: Deploy config
+  template:
+      src: templates/config.yml.j2
+      dest: /etc/ansible/config.ini
+
+- name: Deploy path
+  debug: var=HW2_DEPLOY_PATH verbosity=1
+
+- name: Debug 
+  debug: var=HW2_DEBUG verbosity=1
+
+- name: "Make sure GitHub is accessible"
+  local_action:
+      module: uri
+      url: "{{ HW2_TARBALL_URL }}"
+      status_code: 200
+  register: result
+  until: result.status == 200
+  retries: 3
+  delay: 1
+
+- name: Port 
+  debug: var=HW2_PORT verbosity=1
+
+- name: Service Name 
+  debug: var=HW2_SERVICE_NAME verbosity=1
+
+- name: Config path 
+  debug: var=HW2_CONFIG_PATH verbosity=1
+
+- name: Config name 
+  debug: var=HW2_CONFIG_NAME verbosity=1
+
+- name: Config TZ 
+  debug: var=HW2_CONFIG_TZ verbosity=1
+
+- name: Config title 
+  debug: var=HW2_CONFIG_TITLE verbosity=1
+
+- name: Config salutation 
+  debug: var=HW2_CONFIG_SALUTATION verbosity=1
+

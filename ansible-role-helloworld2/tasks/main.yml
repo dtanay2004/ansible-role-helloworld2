@@ -1,0 +1,3 @@
+---
+# tasks file for helloworld2
+- debug: msg="Starting tasks from helloworld2..."

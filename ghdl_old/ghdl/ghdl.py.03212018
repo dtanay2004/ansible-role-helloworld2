@@ -1,0 +1,27 @@
+# -*- coding: utf-8 -*-
+
+import requests
+"""Main module."""
+
+def download(repo="inhumantsar/flask-helloworld2"):
+    download_url=""
+    listRelease=requests.get('https://api.github.com/repos/{}/releases'.format(repo)).json()
+    
+    if (len(listRelease) > 0):
+       download_url = listRelease[0]['tarball_url']
+    else:
+       download_url = 'https://github.com/{}/archive/master.tar.gz'.format(repo)
+
+    print ("List length %s\n" % len(listRelease))
+    print(download_url)
+
+# 2nd part of the code
+   
+    local_filename = "{}.tgz".format(repo.replace('/','_'))
+    r = requests.get(download_url, stream=True)
+    with open(local_filename, 'wb') as f:
+        for chunk in r.iter_content(chunk_size=1024): 
+            if chunk:      
+                f.write(chunk)
+    print('file written to {}'.format(local_filename))
+

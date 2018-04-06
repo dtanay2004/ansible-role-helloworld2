@@ -1,0 +1,14 @@
+---
+# defaults file for dummy-role
+
+HW2_TARBALL_URL: 'https://api.github.com/repos/inhumantsar/flask-helloworld2/tarball'
+HW2_TMP_PATH: '/tmp/helloworld2'
+HW2_DEPLOY_PATH: '/opt/hw2'
+HW2_DEBUG: True
+HW2_PORT: 8888
+HW2_SERVICE_NAME: 'hw2'
+HW2_CONFIG_PATH: '/opt/hw2/prod.config.yml'
+HW2_CONFIG_NAME: 'Jim Bob'
+HW2_CONFIG_TZ: 'America/Vancouver'
+HW2_CONFIG_TITLE: 'Esquire'
+HW2_CONFIG_SALUTATION: 'Dr.'
